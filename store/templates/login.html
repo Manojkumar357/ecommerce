@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Login | Sarvaswam Store{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-lg border-0 rounded-4 p-4" style="background-color: #fffbe6;">
+      <h3 class="text-center mb-3" style="color: #c28f05;">Welcome Back 👋</h3>
+      <p class="text-center text-muted mb-4">Login to continue your shopping</p>
+
+      <form method="POST" action="/login">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Email</label>
+          <input type="email" name="email" class="form-control form-control-lg rounded-pill" placeholder="Enter your email" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Password</label>
+          <input type="password" name="password" class="form-control form-control-lg rounded-pill" placeholder="Enter your password" required>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger py-2 text-center">{{ error }}</div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-warning w-100 rounded-pill fw-semibold">Login</button>
+      </form>
+
+      <p class="text-center mt-3 mb-0">Don’t have an account?
+        <a href="/signup" class="text-decoration-none fw-semibold" style="color: #c28f05;">Create one</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% if request.session.login_success %}
+<div id="loginSuccessModal" class="modal-backdrop-blur">
+  <div class="popup">
+    <h3>✅ Successfully Logged In!</h3>
+    <p>Welcome back to Sarvaswam Store 💛</p>
+    <button id="closePopup" class="btn btn-warning rounded-pill px-4 mt-3">Continue</button>
+  </div>
+</div>
+
+<style>
+  .modal-backdrop-blur {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .popup {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('closePopup');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        document.getElementById('loginSuccessModal').style.display = 'none';
+        fetch("{% url 'clear_login_success' %}"); 
+         window.location.href = "/cart";  // ✅ Clear the session
+      });
+    }
+  });
+</script>
+{% endif %}
+{% endblock %}

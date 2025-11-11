@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}My Orders | Sarvaswam{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">📦 My Orders</h2>
+{% if orders %}
+<div class="row">
+  {% for order in orders %}
+  <div class="col-md-6 mb-3">
+    <div class="card shadow-sm p-3">
+      <h5>{{ order.product.name }}</h5>
+      <p>Quantity: {{ order.quantity }}</p>
+      <p>Price: ₹{{ order.price }}</p>
+      <p>Status: 
+        {% if order.status %}
+          <span class="badge bg-success">Delivered</span>
+        {% else %}
+          <span class="badge bg-warning">Pending</span>
+        {% endif %}
+      </p>
+      <p><small class="text-muted">Ordered on: {{ order.date }}</small></p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="text-center text-muted">No orders found 📭</p>
+{% endif %}
+{% endblock %}

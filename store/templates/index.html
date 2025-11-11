@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Home | Sarvaswam{% endblock %}
+{% block content %}
+
+<h2 class="text-center mb-4">Featured Products</h2>
+<div class="row">
+  {% for product in products %}
+  <div class="col-md-3 mb-4">
+    <div class="card shadow-sm border-0">
+      <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text text-muted">₹{{ product.price }}</p>
+        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning w-100">
+          <i class="fa fa-cart-plus"></i> Add to Cart
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

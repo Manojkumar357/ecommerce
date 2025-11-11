@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}My Cart | Sarvaswam{% endblock %}
+{% block content %}
+
+<h2 class="mb-4 text-center">🛍️ My Cart</h2>
+
+{% if cart_items %}
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>₹{{ item.product.price }}</td>
+        <td>₹{{ item.get_total_price }}</td>
+        <td>
+          <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger btn-sm">Remove</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="text-end">
+  <h4>Total: ₹{{ total_price }}</h4>
+  <button id="checkoutBtn" class="btn btn-success mt-2">Proceed to Checkout</button>
+</div>
+
+<!-- Checkout Modal -->
+<div id="checkoutModal" class="checkout-modal">
+  <div class="modal-content">
+    <h4>Checkout</h4>
+    <form method="POST" action="{% url 'checkout' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea name="address" id="address" class="form-control" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="text" name="phone" id="phone" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Place Order</button>
+    </form>
+  </div>
+</div>
+
+<!-- Success Popup -->
+<div id="successPopup" class="success-popup">
+  <div class="popup-content">
+    <h3>✅ Order Placed Successfully!</h3>
+    <button id="closeSuccess" class="btn btn-success mt-2">OK</button>
+  </div>
+</div>
+
+{% else %}
+<p class="text-center text-muted">Your cart is empty 😔</p>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.checkout-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 15px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease;
+}
+
+.success-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const checkoutModal = document.getElementById('checkoutModal');
+  const successPopup = document.getElementById('successPopup');
+  const closeSuccess = document.getElementById('closeSuccess');
+
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', () => {
+      checkoutModal.style.display = 'flex';
+    });
+  }
+
+  const form = document.querySelector('#checkoutModal form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+
+      const response = await fetch(e.target.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-CSRFToken': formData.get('csrfmiddlewaretoken') }
+      });
+
+      if (response.ok) {
+        checkoutModal.style.display = 'none';
+        successPopup.style.display = 'flex';
+      }
+    });
+  }
+
+  if (closeSuccess) {
+    closeSuccess.addEventListener('click', () => {
+      successPopup.style.display = 'none';
+      window.location.href = "{% url 'cart' %}";
+    });
+  }
+});
+</script>
+{% endblock %}
