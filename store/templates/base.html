@@ -12,154 +12,174 @@
 
   {% block extra_css %}{% endblock %}
 
-  <style>
-    :root {
-      --primary-color: #d4a017;
-      --dark-color: #212529;
-    }
-
-    body {
-      background: #f5f5f5;
-      font-family: 'Poppins', sans-serif;
-      color: #333;
-    }
-
-   /* 🌟 Advanced Navbar Styling */
-.navbar {
-  background: linear-gradient(90deg, #d4a017, #b58a10);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  padding: 12px 0;
-  transition: all 0.3s ease;
-}
-
-.navbar.scrolled {
-  background: #b58a10;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-}
-
-.navbar-brand {
-  font-weight: 800;
-  font-size: 1.5rem;
-  color: #fff !important;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-.navbar-brand:hover {
-  color: #fffde7 !important;
-  transform: scale(1.05);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-}
-
-/* Navigation links */
-.navbar-nav .nav-link {
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 1.05rem;
-  margin: 0 10px;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-/* Hover underline animation */
-.navbar-nav .nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0%;
-  height: 2px;
-  background-color: #fff;
-  transition: width 0.3s ease;
-}
-
-/* Hover and active effects */
-.navbar-nav .nav-link:hover::after {
-  width: 100%;
-}
-.navbar-nav .nav-link:hover {
-  color: #fffde7 !important;
-  transform: translateY(-2px);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-}
-.navbar-nav .nav-link.active {
-  color: #212529 !important;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 6px 14px;
-}
-
-/* Dropdown menu */
-.dropdown-menu {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-  animation: dropdownFade 0.25s ease-in-out;
-}
-@keyframes dropdownFade {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.dropdown-item {
-  font-weight: 500;
-  color: #333;
-  transition: all 0.25s ease;
-  border-radius: 8px;
-  margin: 3px 6px;
-}
-.dropdown-item:hover {
-  background-color: #d4a017;
-  color: #fff !important;
-  transform: translateX(5px);
-}
-
-/* Mobile view */
-@media (max-width: 991px) {
-  .navbar-collapse {
-    background: #d4a017;
-    border-radius: 10px;
-    padding: 10px;
+<style>
+  :root {
+    --primary-color: #d4a017;
+    --dark-color: #212529;
   }
-}
-    .dropdown-menu a:hover {
-      background-color: var(--primary-color);
-      color: #fff !important;
-    }
 
-    footer {
-      background-color: var(--dark-color);
-      color: white;
-      text-align: center;
-      padding: 25px;
-      margin-top: 60px;
-    }
+  body {
+    background: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+  }
 
-    .popup-container {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(6px);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
+  /* 🌟 Advanced Navbar Styling */
+  .navbar {
+    background: linear-gradient(90deg, #d4a017, #b58a10);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 12px 0;
+    transition: all 0.3s ease;
+  }
 
-    .popup-content {
-      background: #fff8e1;
-      color: #c28f05;
-      padding: 30px 40px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      animation: fadeIn 0.3s ease;
-    }
+  .navbar.scrolled {
+    background: #b58a10;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+  .navbar-brand {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #fff !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-brand:hover {
+    color: #fffde7 !important;
+    transform: scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  }
+
+  /* Navigation links */
+  .navbar-nav .nav-link {
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 0 10px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  /* Hover underline animation */
+  .navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s ease;
+  }
+
+  /* Hover and active effects */
+  .navbar-nav .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: #fffde7 !important;
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+
+  .navbar-nav .nav-link.active {
+    color: #212529 !important;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 6px 14px;
+  }
+
+  /* Dropdown menu */
+  .dropdown-menu {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    animation: dropdownFade 0.25s ease-in-out;
+  }
+
+  @keyframes dropdownFade {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
     }
-  </style>
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .dropdown-item {
+    font-weight: 500;
+    color: #333;
+    transition: all 0.25s ease;
+    border-radius: 8px;
+    margin: 3px 6px;
+  }
+
+  .dropdown-item:hover {
+    background-color: #d4a017;
+    color: #fff !important;
+    transform: translateX(5px);
+  }
+
+  /* Mobile view */
+  @media (max-width: 991px) {
+    .navbar-collapse {
+      background: #d4a017;
+      border-radius: 10px;
+      padding: 10px;
+    }
+  }
+
+  .dropdown-menu a:hover {
+    background-color: var(--primary-color);
+    color: #fff !important;
+  }
+
+  footer {
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+  }
+
+  .popup-container {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .popup-content {
+    background: #fff8e1;
+    color: #c28f05;
+    padding: 30px 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
 </head>
 
 <body>
