@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date  # ✅ cleaner import
+from datetime import date  
 
 # -------------------------------
 # CATEGORY MODEL
@@ -22,7 +22,7 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=10)
-    email = models.EmailField(unique=True)  # ✅ better to make unique
+    email = models.EmailField(unique=True) 
     password = models.CharField(max_length=100)
 
     def register(self):
@@ -32,11 +32,11 @@ class Customer(models.Model):
     def get_customer_by_email(email):
         try:
             return Customer.objects.get(email=email)
-        except Customer.DoesNotExist:  # ✅ more specific
+        except Customer.DoesNotExist:  
             return None
 
     def isExists(self):
-        return Customer.objects.filter(email=self.email).exists()  # ✅ cleaner
+        return Customer.objects.filter(email=self.email).exists() 
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -81,7 +81,7 @@ class Order(models.Model):
     price = models.IntegerField()
     address = models.CharField(max_length=200, default='', blank=True)
     phone = models.CharField(max_length=15, default='', blank=True)
-    date = models.DateField(default=date.today)  # ✅ changed for correctness
+    date = models.DateField(default=date.today)  
     status = models.BooleanField(default=False)
 
     def placeOrder(self):
