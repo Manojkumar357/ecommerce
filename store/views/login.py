@@ -22,9 +22,9 @@ class Login(View):
             flag = check_password(password, customer.password)
             if flag:
                 request.session['customer'] = customer.id
-                request.session['login_success'] = True  # ✅ Set the flag
+                request.session['login_success'] = True  #  Set the flag
 
-                # ✅ Redirect back to the same page to trigger popup
+                #  Redirect back to the same page to trigger popup
                 return redirect('/login?success=true')
 
             else:
@@ -36,11 +36,11 @@ class Login(View):
 
 
 def logout(request):
-    # ✅ Remove only the customer session key
+    #  Remove only the customer session key
     if 'customer' in request.session:
         del request.session['customer']
 
-    # ✅ Set logout success flag (keep session alive)
+    #  Set logout success flag (keep session alive)
     request.session['logout_success'] = True
 
     return redirect('homepage')

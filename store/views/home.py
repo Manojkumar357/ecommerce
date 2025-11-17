@@ -3,7 +3,7 @@ from store.models import Products, Category
 from django.views import View
 
 
-# Create your views here.
+
 class Index(View):
 
     def post(self, request):
